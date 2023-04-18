@@ -8,13 +8,19 @@
     //    TODO: Code here!
     let urlUserApi = "https://jsonplaceholder.typicode.com/users";
     let urlPostApi = "https://jsonplaceholder.typicode.com/posts?userId=";
+    let urlCommentApi = "https://jsonplaceholder.typicode.com/comments?postId="
     $.get(urlUserApi, function (users) {
       users.forEach((user) => {
         $.get(urlPostApi + user.id, function (postsData) {
           user.posts = postsData;
-          $.get(user.id);
-          $scope.$apply(function () {
-            $scope.users = users;
+          postsData.forEach((comment) => {
+            $.get(urlCommentApi + postsData.id, function (commentsData) {
+              comment.comments = commentsData;
+              $.get(user.id);
+              $scope.$apply(function () {
+                $scope.users = users;
+              });
+            })
           });
         });
       });
@@ -26,7 +32,7 @@
   // Problem 2: Promise
   // function DemoController($scope) {
   //    TODO: Code here!
-//helloWorld ad sd asd sa s 
+  //helloWorld ad sd asd sa s 
   // }
 
   // Problem 03: Generators // BO QUA
