@@ -48,10 +48,8 @@
     }
     getData(userApi)
       .then((data) => {
-        let userPromise = [];
         data.forEach((user) => {
           users = data;
-          userPromise.push(getData(user.id));
         });
         $scope.$apply(function () {
           $scope.users = users;
